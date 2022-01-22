@@ -14,8 +14,8 @@ class CreateObservationsTable extends Migration
     public function up()
     {
         Schema::create('observations', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->text('cognition');
+            $table->timestamp('date');
         });
     }
 

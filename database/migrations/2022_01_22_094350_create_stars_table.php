@@ -15,7 +15,11 @@ class CreateStarsTable extends Migration
     {
         Schema::create('stars', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('name')->unique();
+            $table->string('system');
+            $table->string('spectral');
+            $table->string('size');
+            $table->timestamp('discovered');
         });
     }
 
