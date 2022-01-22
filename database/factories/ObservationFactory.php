@@ -19,7 +19,6 @@ class ObservationFactory extends Factory
             'scientist_id'=> Scientist::factory(),
             'star_id'=> Star::factory(),
             'cognition'=> $this->faker->paragraph(),
-            'date'=>$this->faker->date(),
             'new_star'=>$this->faker->boolean()
         ];
     }

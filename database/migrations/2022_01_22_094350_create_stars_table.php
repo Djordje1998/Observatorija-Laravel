@@ -19,7 +19,7 @@ class CreateStarsTable extends Migration
             $table->string('system');
             $table->string('spectral');
             $table->string('size');
-            $table->timestamp('discovered');
+            $table->timestamps();
         });
     }
 

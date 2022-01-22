@@ -17,8 +17,7 @@ class StarFactory extends Factory
             'name'=> $this->faker->name(),
             'system'=> $this->faker->title(),
             'spectral'=> $this->faker->colorName(),
-            'size'=>$this->faker->word(),
-            'discovered'=>$this->faker->date()
+            'size'=>$this->faker->name()
         ];
     }
 }

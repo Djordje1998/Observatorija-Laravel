@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Scientist extends Model
 {
     use HasFactory;
-    protected $fillable=['name','email'];
+    protected $fillable=['name','email','password'];
 
     public function observations()
     {
