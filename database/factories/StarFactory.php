@@ -14,7 +14,11 @@ class StarFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name'=> $this->faker->name(),
+            'system'=> $this->faker->title(),
+            'spectral'=> $this->faker->colorName(),
+            'size'=>$this->faker->word(),
+            'discovered'=>$this->faker->date()
         ];
     }
 }

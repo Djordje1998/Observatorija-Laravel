@@ -14,7 +14,9 @@ class ScientistFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name'=> $this->faker->name(). ' '. $this->faker->lastName(),
+            'email'=> $this->faker->unique()->email(),
+            'password'=> $this->faker->password()
         ];
     }
 }
