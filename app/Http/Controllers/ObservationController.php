@@ -38,7 +38,7 @@ class ObservationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Observation::create($request->all());
     }
 
     /**

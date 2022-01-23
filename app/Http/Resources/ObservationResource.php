@@ -19,7 +19,7 @@ class ObservationResource extends JsonResource
         return [
             'scientist' => new ScientistResource($this->resource->scientist),
             'star' => new StarResource($this->resource->star),
-            'coginition' => $this->resource->coginition,
+            'cognition' => $this->resource->cognition,
             'new_star' => $this->resource->new_star,
             'created_at' => $this->resource->created_at,
             'updated_at' => $this->resource->updated_at

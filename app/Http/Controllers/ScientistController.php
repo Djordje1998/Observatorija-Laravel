@@ -38,7 +38,7 @@ class ScientistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Scientist::create($request->all());
     }
 
     /**

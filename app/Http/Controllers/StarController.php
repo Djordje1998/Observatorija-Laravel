@@ -38,7 +38,7 @@ class StarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Star::create($request->all());
     }
 
     /**
