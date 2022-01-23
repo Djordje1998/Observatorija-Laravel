@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\StarCollection;
 use App\Http\Resources\StarResource;
 use App\Models\star;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class StarController extends Controller
     public function index()
     {
         $stars = Star::all();
-        return $stars;
+        return new StarCollection($stars);
     }
 
     /**

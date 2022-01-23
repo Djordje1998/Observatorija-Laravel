@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ScientistCollection;
 use App\Http\Resources\ScientistResource;
 use App\Models\scientist;
 use Illuminate\Http\Request;
@@ -15,7 +16,8 @@ class ScientistController extends Controller
      */
     public function index()
     {
-        //
+        $scientists = scientist::all();
+        return new ScientistCollection($scientists);
     }
 
     /**

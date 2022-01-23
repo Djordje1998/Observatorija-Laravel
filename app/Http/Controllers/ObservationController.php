@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ObservationCollection;
 use App\Http\Resources\ObservationResource;
 use App\Models\observation;
 use Illuminate\Http\Request;
@@ -15,7 +16,8 @@ class ObservationController extends Controller
      */
     public function index()
     {
-        //
+        $observations = Observation::all();
+        return new ObservationCollection($observations);
     }
 
     /**
