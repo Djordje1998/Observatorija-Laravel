@@ -81,8 +81,13 @@ class ScientistController extends Controller
      * @param  \App\Models\scientist  $scientist
      * @return \Illuminate\Http\Response
      */
-    public function destroy(scientist $scientist)
+    public function destroy($scientist_id)
     {
-        //
+        $scientist = Scientist::find($scientist_id);
+        if (is_null($scientist)) {
+            return response()->json('Scientist with given id does not exist!', 404);
+        }
+        $scientist->delete();
+        return response()->json('Scientist successfully deleted',200);
     }
 }
