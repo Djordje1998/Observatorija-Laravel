@@ -70,9 +70,14 @@ class ScientistController extends Controller
      * @param  \App\Models\scientist  $scientist
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, scientist $scientist)
+    public function update(Request $request, $scientist_id)
     {
-        //
+        $scientist = Scientist::find($scientist_id);
+        if(is_null($scientist)){
+            return response()->json('Scientist with given id does not exist!', 404);
+        }
+        $scientist->update($request->all());
+        return response()->json('Scientist successfully updated',200);
     }
 
     /**
