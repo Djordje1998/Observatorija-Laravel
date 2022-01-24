@@ -81,8 +81,15 @@ class ObservationController extends Controller
      * @param  \App\Models\observation  $observation
      * @return \Illuminate\Http\Response
      */
-    public function destroy(observation $observation)
+    public function destroy(Request $request)
     {
-        //
+        $observation = Observation::where([
+            ['scientist_id', $request->scientist_id],
+            ['star_id', $request->star_id]
+        ])->delete();
+        if (is_null($observation)) {
+            return response()->json('Observation with given id does not exist!',404);
+        }
+        return response()->json('Observation is deleted successfully',200);
     }
 }
