@@ -14,8 +14,8 @@ class CreateObservationsTable extends Migration
     public function up()
     {
         Schema::create('observations', function (Blueprint $table) {
-            $table->foreignId('scientist_id');
-            $table->foreignId('star_id');
+            $table->foreignId('scientist_id')->constrained()->restrictOnDelete()->cascadeOnUpdate();
+            $table->foreignId('star_id')->constrained()->restrictOnDelete()->cascadeOnUpdate();
             $table->text('cognition');
             $table->timestamps();
             $table->primary(['scientist_id','star_id']);
