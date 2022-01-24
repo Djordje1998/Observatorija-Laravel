@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Observation::truncate();
-        Scientist::truncate();
-        Star::truncate();
+        //Observation::truncate();
+        //Scientist::truncate();
+        //Star::truncate();
         
         Scientist::factory(2)->create();
         Star::factory(2)->create();
