@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\ObservationController;
 use App\Http\Controllers\ScientistController;
 use App\Http\Controllers\StarController;
@@ -28,3 +29,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::resource('stars',StarController::class)->only('index','store','show','update','destroy');
 Route::resource('scientists',ScientistController::class)->only('index','store','show','update','destroy');
 Route::resource('observations',ObservationController::class)->only('index','store','show','destroy');
+Route::post('/register',[AuthController::class,'register']);
+Route::post('/login', [AuthController::class, 'login']);
