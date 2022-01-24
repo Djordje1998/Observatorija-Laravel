@@ -25,6 +25,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Route::get('stars',[StarController::class,'index']);
 //Route::get('stars/{id}',[StarController::class,'show']);
 
-Route::resource('stars',StarController::class);
-Route::resource('scientists',ScientistController::class);
-Route::resource('observations',ObservationController::class);
+Route::resource('stars',StarController::class)->only('index','store','show','update','destroy');
+Route::resource('scientists',ScientistController::class)->only('index','store','show','update','destroy');
+Route::resource('observations',ObservationController::class)->only('index','store','show','destroy');

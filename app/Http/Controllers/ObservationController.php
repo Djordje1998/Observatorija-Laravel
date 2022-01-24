@@ -86,10 +86,11 @@ class ObservationController extends Controller
         $observation = Observation::where([
             ['scientist_id', $request->scientist_id],
             ['star_id', $request->star_id]
-        ])->delete();
+        ]);
         if (is_null($observation)) {
             return response()->json('Observation with given id does not exist!',404);
         }
+        $observation->delete();
         return response()->json('Observation is deleted successfully',200);
     }
 }
