@@ -89,12 +89,23 @@ class ScientistController extends Controller
      */
     public function update(Request $request, $scientist_id)
     {
+        $validator = Validator::make($request->all(),[
+            'name'=>'required|string|max:50|min:3',
+            'email'=>'required|string|max:50|min:8|email|unique:scientists',
+            'password'=>'required|string|max:50|min:5'
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors());
+        }
+
         $scientist = Scientist::find($scientist_id);
         if(is_null($scientist)){
             return response()->json('Scientist with given id does not exist!', 404);
         }
+
         $scientist->update($request->all());
-        return response()->json('Scientist successfully updated',200);
+        return response()->json(['Scientist is created successfully.',new ScientistResource($scientist)]);
     }
 
     /**

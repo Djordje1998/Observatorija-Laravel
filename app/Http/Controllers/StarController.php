@@ -39,19 +39,19 @@ class StarController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:50|min:3',
             'system' => 'required|string|max:50|min:3',
             'spectral' => 'required|string|max:50|min:3',
             'size' => 'required|string|max:50|min:3'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json($validator->errors());
         }
 
         $star = Star::create($request->all());
-        return response()->json(['Star is created successfully.',new StarResource($star)]);
+        return response()->json(['Star is created successfully.', new StarResource($star)]);
     }
 
     /**
@@ -92,12 +92,23 @@ class StarController extends Controller
      */
     public function update(Request $request, $star_id)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:50|min:3',
+            'system' => 'required|string|max:50|min:3',
+            'spectral' => 'required|string|max:50|min:3',
+            'size' => 'required|string|max:50|min:3'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
         $star = Star::find($star_id);
-        if(is_null($star)){
-            return response()->json('Star with given id does not exist!',404);
+        if (is_null($star)) {
+            return response()->json('Star with given id does not exist!', 404);
         }
         $star->update($request->all());
-        return response()->json('Star is updated successfully',200);
+        return response()->json(['Star is updated successfully.', new StarResource($star)]);
     }
 
     /**
@@ -109,6 +120,6 @@ class StarController extends Controller
     public function destroy(star $star)
     {
         $star->delete();
-        return response()->json('Star is deleted successfully',200);
+        return response()->json('Star is deleted successfully', 200);
     }
 }
