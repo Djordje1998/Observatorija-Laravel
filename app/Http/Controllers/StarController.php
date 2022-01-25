@@ -6,6 +6,7 @@ use App\Http\Resources\StarCollection;
 use App\Http\Resources\StarResource;
 use App\Models\star;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class StarController extends Controller
 {
@@ -38,7 +39,19 @@ class StarController extends Controller
      */
     public function store(Request $request)
     {
-        Star::create($request->all());
+        $validator = Validator::make($request->all(),[
+            'name' => 'required|string|max:50|min:3',
+            'system' => 'required|string|max:50|min:3',
+            'spectral' => 'required|string|max:50|min:3',
+            'size' => 'required|string|max:50|min:3'
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors());
+        }
+
+        $star = Star::create($request->all());
+        return response()->json(['Star is created successfully.',new StarResource($star)]);
     }
 
     /**

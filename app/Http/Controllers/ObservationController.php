@@ -6,6 +6,7 @@ use App\Http\Resources\ObservationCollection;
 use App\Http\Resources\ObservationResource;
 use App\Models\observation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ObservationController extends Controller
 {
@@ -38,7 +39,19 @@ class ObservationController extends Controller
      */
     public function store(Request $request)
     {
-        Observation::create($request->all());
+        $validator = Validator::make($request->all(),[
+            'scientist_id' => 'required|integer',
+            'star_id' => 'required|integer',
+            'cognition' => 'required|string|max:255|min:20',
+            'new_star' => 'required|integer'
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors());
+        }
+
+        $observation = Observation::create($request->all());
+        return response()->json(['Observation is created successfully.',new ObservationResource($observation)]);
     }
 
     /**

@@ -6,6 +6,8 @@ use App\Http\Resources\ScientistCollection;
 use App\Http\Resources\ScientistResource;
 use App\Models\scientist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class ScientistController extends Controller
 {
@@ -38,7 +40,22 @@ class ScientistController extends Controller
      */
     public function store(Request $request)
     {
-        Scientist::create($request->all());
+        $validator = Validator::make($request->all(),[
+            'name'=>'required|string|max:50|min:3',
+            'email'=>'required|string|max:50|min:8|email|unique:scientists',
+            'password'=>'required|string|max:50|min:5'
+        ]);
+
+        if($validator->fails()){
+            return response()->json($validator->errors());
+        }
+
+        $scientist = Scientist::create([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>Hash::make($request->password)
+        ]);
+        return response()->json(['Scientist is created successfully.',new ScientistResource($scientist)]);
     }
 
     /**
