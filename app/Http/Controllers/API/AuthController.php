@@ -47,6 +47,6 @@ class AuthController extends Controller
     public function logout()
     {
         auth()->user()->tokens()->delete();
-        return['message'=>'You are logged out, token was deleted'];
+        return['message'=>'You are logged out and your token was deleted'];
     }
 }

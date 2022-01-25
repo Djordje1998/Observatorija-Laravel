@@ -35,6 +35,7 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('stars', StarController::class)->only('store', 'update', 'destroy');
     Route::resource('scientists', ScientistController::class)->only('store',  'update', 'destroy');
-    Route::resource('observations', ObservationController::class)->only('store', 'destroy');
+    Route::resource('observations', ObservationController::class)->only('store');
+    Route::delete('/observations', [ObservationController::class, 'destroy']);
     Route::post('/logout', [AuthController::class, 'logout']);
 });

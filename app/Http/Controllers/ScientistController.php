@@ -104,7 +104,11 @@ class ScientistController extends Controller
             return response()->json('Scientist with given id does not exist!', 404);
         }
 
-        $scientist->update($request->all());
+        $scientist->update([
+            'name'=>$request->name,
+            'email'=>$request->email,
+            'password'=>Hash::make($request->password)
+        ]);
         return response()->json(['Scientist is created successfully.',new ScientistResource($scientist)]);
     }
 
