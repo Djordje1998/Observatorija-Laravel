@@ -4,7 +4,6 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\ObservationController;
 use App\Http\Controllers\ScientistController;
 use App\Http\Controllers\StarController;
-use App\Http\Resources\StarResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
