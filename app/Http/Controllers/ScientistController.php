@@ -47,7 +47,7 @@ class ScientistController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json($validator->errors());
+            return response()->json(['success' => false,'error'=>$validator->errors()]);
         }
 
         $scientist = Scientist::create([
@@ -55,7 +55,7 @@ class ScientistController extends Controller
             'email'=>$request->email,
             'password'=>Hash::make($request->password)
         ]);
-        return response()->json(['Scientist is created successfully.',new ScientistResource($scientist)]);
+        return response()->json(['success' => true,'message'=>'Scientist is created successfully.','scientist'=>new ScientistResource($scientist)]);
     }
 
     /**

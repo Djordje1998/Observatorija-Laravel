@@ -47,11 +47,11 @@ class StarController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors());
+            return response()->json(['success' => false, 'error' => $validator->errors()]);
         }
 
         $star = Star::create($request->all());
-        return response()->json(['Star is created successfully.', new StarResource($star)]);
+        return response()->json(['success' => true, 'message' => 'Star is created successfully.', 'star' => new StarResource($star)]);
     }
 
     /**
