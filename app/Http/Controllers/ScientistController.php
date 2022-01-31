@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ScientistCollection;
 use App\Http\Resources\ScientistResource;
 use App\Models\scientist;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -47,15 +48,20 @@ class ScientistController extends Controller
         ]);
 
         if($validator->fails()){
-            return response()->json(['success' => false,'error'=>$validator->errors()]);
+            return response()->json(['success' => false,'message'=>"".$validator->errors()]);
         }
 
-        $scientist = Scientist::create([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'password'=>Hash::make($request->password)
-        ]);
-        return response()->json(['success' => true,'message'=>'Scientist is created successfully.','scientist'=>new ScientistResource($scientist)]);
+        try {
+            $scientist = Scientist::create([
+                'name'=>$request->name,
+                'email'=>$request->email,
+                'password'=>Hash::make($request->password)
+            ]);
+            return response()->json(['success' => true,'message'=>'Scientist is created successfully.','scientist'=>new ScientistResource($scientist)]);
+        } catch (Exception $ex) {
+            return response()->json(['success' => false, 'message' => $ex->getMessage()]);
+        }
+
     }
 
     /**
@@ -122,9 +128,9 @@ class ScientistController extends Controller
     {
         $scientist = Scientist::find($scientist_id);
         if (is_null($scientist)) {
-            return response()->json('Scientist with given id does not exist!', 404);
+            return response()->json(['success'=>false,'message'=>'Scientist with given id does not exist!'], 404);
         }
         $scientist->delete();
-        return response()->json('Scientist successfully deleted',200);
+        return response()->json(['success'=>true,'message'=>'Scientist successfully deleted'],200);
     }
 }

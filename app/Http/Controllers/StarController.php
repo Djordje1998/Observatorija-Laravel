@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\StarCollection;
 use App\Http\Resources\StarResource;
 use App\Models\star;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -47,11 +48,15 @@ class StarController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['success' => false, 'error' => $validator->errors()]);
+            return response()->json(['success' => false, 'message' => "".$validator->errors()]);
         }
 
-        $star = Star::create($request->all());
-        return response()->json(['success' => true, 'message' => 'Star is created successfully.', 'star' => new StarResource($star)]);
+        try {
+            $star = Star::create($request->all());
+            return response()->json(['success' => true, 'message' => 'Star is created successfully.', 'star' => new StarResource($star)]);
+        } catch (Exception $ex) {
+            return response()->json(['success' => false, 'message' => $ex->getMessage()]);
+        }
     }
 
     /**
@@ -117,9 +122,17 @@ class StarController extends Controller
      * @param  \App\Models\star  $star
      * @return \Illuminate\Http\Response
      */
-    public function destroy(star $star)
+    public function destroy($star_id)
     {
-        $star->delete();
-        return response()->json('Star is deleted successfully', 200);
+        $star = Star::find($star_id);
+        if (is_null($star)) {
+            return response()->json(['success' => false, 'message' => 'Star with given id does not exist!'], 404);
+        }
+        try {
+            $star->delete();
+            return response()->json(['success' => true, 'message' => 'Star successfully deleted'], 200);
+        } catch (Exception $ex) {
+            return response()->json(['success' => false, 'message' => $ex->getMessage()]);
+        }
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ObservationCollection;
 use App\Http\Resources\ObservationResource;
 use App\Models\observation;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -96,11 +97,14 @@ class ObservationController extends Controller
      */
     public function destroy(Request $request)
     {
-        Observation::where([
-            ['scientist_id', $request->scientist_id],
-            ['star_id', $request->star_id]
-        ])->delete();
-        
-        return response()->json('Observation is deleted successfully');
+        try {
+            Observation::where([
+                ['scientist_id', $request->scientist_id],
+                ['star_id', $request->star_id]
+            ])->delete();
+            return response()->json(['success'=>true,'message'=>'Observation is deleted successfully']);
+        } catch (Exception $ex) {
+            return response()->json(['success' => false, 'message' => $ex->getMessage()]);
+        }
     }
 }
