@@ -20,8 +20,8 @@ class DatabaseSeeder extends Seeder
         //Scientist::truncate();
         //Star::truncate();
         
-        Scientist::factory(2)->create();
-        Star::factory(2)->create();
+        Scientist::factory(4)->create();
+        Star::factory(4)->create();
 
         $sc1 = Scientist::factory()->create();
         $sc2 = Scientist::factory()->create();
